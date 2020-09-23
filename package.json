@@ -32,11 +32,11 @@
     "syntax.js"
   ],
   "dependencies": {
-    "micromark-extension-gfm-autolink-literal": "~0.3.0",
-    "micromark-extension-gfm-strikethrough": "~0.4.0",
-    "micromark-extension-gfm-table": "~0.2.0",
+    "micromark-extension-gfm-autolink-literal": "~0.4.0",
+    "micromark-extension-gfm-strikethrough": "~0.5.0",
+    "micromark-extension-gfm-table": "~0.3.0",
     "micromark-extension-gfm-tagfilter": "~0.3.0",
-    "micromark-extension-gfm-task-list-item": "~0.2.0"
+    "micromark-extension-gfm-task-list-item": "~0.3.0"
   },
   "devDependencies": {
     "hast-util-select": "^4.0.0",
