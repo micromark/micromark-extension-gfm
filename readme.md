@@ -138,7 +138,7 @@ in `htmlExtensions`).
 ###### `options.singleTilde`
 
 Passed as [`singleTilde`][single-tilde] in
-[`micromark-extension-gfm-task-list-item`][mm-tasklist].
+[`micromark-extension-gfm-strikethrough`][mm-strikethrough].
 
 ## Related
 
@@ -243,4 +243,4 @@ abide by its terms.
 
 [single-tilde]: https://github.com/micromark/micromark-extension-gfm-strikethrough#optionssingletilde
 
-[mm-tasklist]: https://github.com/micromark/micromark-extension-gfm-task-list-item
+[mm-strikethrough]: https://github.com/micromark/micromark-extension-gfm-strikethrough
