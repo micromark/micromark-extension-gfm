@@ -179,9 +179,9 @@ abide by its terms.
 
 <!-- Definitions -->
 
-[build-badge]: https://img.shields.io/travis/micromark/micromark-extension-gfm.svg
+[build-badge]: https://github.com/micromark/micromark-extension-gfm/workflows/main/badge.svg
 
-[build]: https://travis-ci.org/micromark/micromark-extension-gfm
+[build]: https://github.com/micromark/micromark-extension-gfm/actions
 
 [coverage-badge]: https://img.shields.io/codecov/c/github/micromark/micromark-extension-gfm.svg
 
