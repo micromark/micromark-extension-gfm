@@ -203,7 +203,7 @@ abide by its terms.
 
 [chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
 
-[chat]: https://github.com/micromark/unist/discussions
+[chat]: https://github.com/micromark/micromark/discussions
 
 [npm]: https://docs.npmjs.com/cli/install
 
