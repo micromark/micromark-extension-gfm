@@ -32,7 +32,7 @@
     "syntax.js"
   ],
   "dependencies": {
-    "micromark": "~2.10.0",
+    "micromark": "~2.11.0",
     "micromark-extension-gfm-autolink-literal": "~0.5.0",
     "micromark-extension-gfm-strikethrough": "~0.6.0",
     "micromark-extension-gfm-table": "~0.4.0",
