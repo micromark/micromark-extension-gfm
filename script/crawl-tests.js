@@ -1,3 +1,7 @@
+/**
+ * @typedef {import('hast').Root} Root
+ */
+
 import {promises as fs} from 'fs'
 import path from 'path'
 import fetch from 'node-fetch'
@@ -9,7 +13,10 @@ import {toText} from 'hast-util-to-text'
 fetch('https://github.github.com/gfm/')
   .then((response) => response.text())
   .then((doc) => {
+    /** @type {Root} */
+    // @ts-expect-error It’s fine.
     const tree = unified().use(parse).parse(doc)
+    /** @type {Array.<{category: string, input: string, output: string}>} */
     const data = []
     const $extensions = selectAll('div.extension', tree)
     let index = -1
@@ -18,6 +25,7 @@ fetch('https://github.github.com/gfm/')
       const $extension = $extensions[index]
       const $examples = selectAll('.example', $extension)
       const $heading = select('h2', $extension)
+      if (!$heading) throw new Error('Missing heading in `' + index + '`')
       const category = toText($heading)
         // Remove number.
         .replace(/^\d+\.\d+\s*/, '')
