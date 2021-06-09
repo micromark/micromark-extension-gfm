@@ -1,8 +1,8 @@
 var test = require('tape')
 var micromark = require('micromark')
-var syntax = require('../syntax')({singleTilde: false})
-var html = require('../html')
-var spec = require('./spec')
+var syntax = require('../syntax.js')({singleTilde: false})
+var html = require('../html.js')
+var spec = require('./spec.json')
 
 test('markdown -> html (micromark)', function (t) {
   spec.forEach((example, index) => {
