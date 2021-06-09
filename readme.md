@@ -14,11 +14,13 @@ This extension matches either the [GFM][] spec or github.com (default).
 This package provides the low-level modules for integrating with the micromark
 tokenizer and the micromark HTML compiler.
 
-You probably shouldn’t use this package directly, but instead use
-[`mdast-util-gfm`][mdast-util-gfm] with **[mdast][]** or `remark-gfm` with
-**[remark][]**.
+## When to use this
 
-Alternatively, the extensions can be used separately:
+If you’re using [`micromark`][micromark] or
+[`mdast-util-from-markdown`][from-markdown], use this package.
+Alternatively, if you’re using **[remark][]**, use [`remark-gfm`][remark-gfm].
+
+If you don’t need all of GFM, the extensions can be used separately:
 
 *   [`micromark/micromark-extension-gfm-autolink-literal`](https://github.com/micromark/micromark-extension-gfm-autolink-literal)
     — support GFM [autolink literals][]
@@ -72,23 +74,20 @@ www.example.com, https://example.com, and contact@example.com.
 * [x] done
 ```
 
-And our script, `example.js`, looks as follows:
+And our module, `example.js`, looks as follows:
 
 ```js
-var fs = require('fs')
-var micromark = require('micromark')
-var gfmSyntax = require('micromark-extension-gfm')
-var gfmHtml = require('micromark-extension-gfm/html')
+import fs from 'node:fs'
+import {micromark} from 'micromark'
+import {gfm, gfmHtml} from 'micromark-extension-gfm'
 
-var doc = fs.readFileSync('example.md')
-
-var result = micromark(doc, {
+const output = micromark(fs.readFileSync('example.md'), {
   allowDangerousHtml: true,
-  extensions: [gfmSyntax()],
+  extensions: [gfm()],
   htmlExtensions: [gfmHtml]
 })
 
-console.log(result)
+console.log(output)
 ```
 
 Now, running `node example` yields:
@@ -128,16 +127,11 @@ There is no default export.
 
 ### `gfmHtml`
 
-> Note: `syntax` is the default export of this module, `html` is available at
-> `micromark-extension-gfm/html`.
-
 Support [GFM][] or markdown on github.com.
-
-The export of `syntax` is a function that can be called with options and returns
-extension for the micromark parser (to tokenize GFM; can be passed in
-`extensions`).
-The export of html is an extension for the default HTML compiler (can be passed
-in `htmlExtensions`).
+`gfm` is a function that can be called with options and returns an extension for
+micromark to parse GFM (can be passed in `extensions`).
+`gfmHtml` is an extension for micromark to compile as elements (can be passed in
+`htmlExtensions`).
 
 ##### `options`
 
@@ -231,11 +225,9 @@ abide by its terms.
 
 [remark]: https://github.com/remarkjs/remark
 
-[mdast]: https://github.com/syntax-tree/mdast
+[remark-gfm]: https://github.com/remarkjs/remark-gfm
 
 [gfm]: https://github.github.com/gfm/
-
-[mdast-util-gfm]: https://github.com/syntax-tree/mdast-util-gfm
 
 [strikethrough]: https://github.github.com/gfm/#strikethrough-extension-
 
