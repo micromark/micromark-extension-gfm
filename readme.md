@@ -33,6 +33,9 @@ Alternatively, the extensions can be used separately:
 
 ## Install
 
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
+
 [npm][]:
 
 ```sh
@@ -118,9 +121,12 @@ Now, running `node example` yields:
 
 ## API
 
-### `html`
+This package exports the following identifiers: `gfm`, `gfmHtml`.
+There is no default export.
 
-### `syntax(options?)`
+### `gfm(options?)`
+
+### `gfmHtml`
 
 > Note: `syntax` is the default export of this module, `html` is available at
 > `micromark-extension-gfm/html`.

@@ -1,12 +1,10 @@
-'use strict'
-
-var fs = require('fs')
-var path = require('path')
-var fetch = require('node-fetch')
-var unified = require('unified')
-var parse = require('rehype-parse')
-var select = require('hast-util-select')
-var text = require('hast-util-to-text')
+import fs from 'fs'
+import path from 'path'
+import fetch from 'node-fetch'
+import unified from 'unified'
+import parse from 'rehype-parse'
+import {select, selectAll} from 'hast-util-select'
+import {toText} from 'hast-util-to-text'
 
 fetch('https://github.github.com/gfm/')
   .then((response) => response.text())
@@ -14,21 +12,21 @@ fetch('https://github.github.com/gfm/')
     var tree = unified().use(parse).parse(doc)
     var data = []
 
-    select.selectAll('div.extension', tree).forEach(($extension) => {
-      var $heading = select.select('h2', $extension)
-      var category = text($heading)
+    selectAll('div.extension', tree).forEach(($extension) => {
+      var $heading = select('h2', $extension)
+      var category = toText($heading)
         // Remove number.
         .replace(/^\d+\.\d+\s*/, '')
         // Remove extension.
         .replace(/\s*\(extension\)$/, '')
 
-      select.selectAll('.example', $extension).forEach(($example) => {
-        var columns = select.selectAll('.column pre', $example)
+      selectAll('.example', $extension).forEach(($example) => {
+        var columns = selectAll('.column pre', $example)
 
         data.push({
-          category: category,
-          input: text(columns[0]).replace(/→/g, '\t'),
-          output: text(columns[1]).replace(/→/g, '\t')
+          category,
+          input: toText(columns[0]).replace(/→/g, '\t'),
+          output: toText(columns[1]).replace(/→/g, '\t')
         })
       })
     })
@@ -37,8 +35,8 @@ fetch('https://github.github.com/gfm/')
   })
   .then((data) => {
     return fs.promises.writeFile(
-      path.join('test', 'spec.json'),
-      JSON.stringify(data, null, 2) + '\n'
+      path.join('test', 'spec.js'),
+      'export const spec = ' + JSON.stringify(data, null, 2) + '\n'
     )
   })
   .then(() => {

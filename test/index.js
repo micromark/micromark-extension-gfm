@@ -1,8 +1,7 @@
-var test = require('tape')
-var micromark = require('micromark')
-var syntax = require('../syntax.js')({singleTilde: false})
-var html = require('../html.js')
-var spec = require('./spec.json')
+import test from 'tape'
+import {micromark} from 'micromark'
+import {gfm, gfmHtml} from '../index.js'
+import {spec} from './spec.js'
 
 test('markdown -> html (micromark)', function (t) {
   spec.forEach((example, index) => {
@@ -10,8 +9,8 @@ test('markdown -> html (micromark)', function (t) {
       micromark(example.input, {
         allowDangerousHtml: true,
         allowDangerousProtocol: true,
-        extensions: [syntax],
-        htmlExtensions: [html]
+        extensions: [gfm({singleTilde: false})],
+        htmlExtensions: [gfmHtml]
       }),
       example.output,
       example.category + ' (' + index + ')'
