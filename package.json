@@ -70,16 +70,9 @@
   },
   "xo": {
     "prettier": true,
-    "esnext": false,
     "ignores": [
       "types"
-    ],
-    "rules": {
-      "no-var": "off",
-      "prefer-arrow-callback": "off",
-      "guard-for-in": "off",
-      "unicorn/no-array-for-each": "off"
-    }
+    ]
   },
   "remarkConfig": {
     "plugins": [

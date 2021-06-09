@@ -3,19 +3,21 @@ import {micromark} from 'micromark'
 import {gfm, gfmHtml} from '../index.js'
 import {spec} from './spec.js'
 
-test('markdown -> html (micromark)', function (t) {
-  spec.forEach((example, index) => {
+test('markdown -> html (micromark)', (t) => {
+  let index = -1
+
+  while (++index < spec.length) {
     t.deepEqual(
-      micromark(example.input, {
+      micromark(spec[index].input, {
         allowDangerousHtml: true,
         allowDangerousProtocol: true,
         extensions: [gfm({singleTilde: false})],
         htmlExtensions: [gfmHtml]
       }),
-      example.output,
-      example.category + ' (' + index + ')'
+      spec[index].output,
+      spec[index].category + ' (' + index + ')'
     )
-  })
+  }
 
   t.end()
 })
