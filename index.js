@@ -1,30 +1,27 @@
 /**
  * @typedef {import('micromark-util-types').Extension} Extension
  * @typedef {import('micromark-util-types').HtmlExtension} HtmlExtension
- * @typedef {import('micromark-extension-gfm-strikethrough').GfmStrikethroughOptions} Options
+ * @typedef {import('micromark-extension-gfm-strikethrough').Options} Options
  */
 
 import {
   combineExtensions,
   combineHtmlExtensions
 } from 'micromark-util-combine-extensions'
-// @ts-expect-error: next
-import autolink from 'micromark-extension-gfm-autolink-literal'
-// @ts-expect-error: next
-import autolinkHtml from 'micromark-extension-gfm-autolink-literal/html.js'
-import strikethrough from 'micromark-extension-gfm-strikethrough'
-// @ts-expect-error: next
-import strikethroughHtml from 'micromark-extension-gfm-strikethrough/html.js'
-// @ts-expect-error: next
-import table from 'micromark-extension-gfm-table'
-// @ts-expect-error: next
-import tableHtml from 'micromark-extension-gfm-table/html.js'
-// @ts-expect-error: next
-import tagfilterHtml from 'micromark-extension-gfm-tagfilter/html.js'
-// @ts-expect-error: next
-import tasklist from 'micromark-extension-gfm-task-list-item'
-// @ts-expect-error: next
-import tasklistHtml from 'micromark-extension-gfm-task-list-item/html.js'
+import {
+  gfmAutolinkLiteral,
+  gfmAutolinkLiteralHtml
+} from 'micromark-extension-gfm-autolink-literal'
+import {
+  gfmStrikethrough,
+  gfmStrikethroughHtml
+} from 'micromark-extension-gfm-strikethrough'
+import {gfmTable, gfmTableHtml} from 'micromark-extension-gfm-table'
+import {gfmTagfilterHtml} from 'micromark-extension-gfm-tagfilter'
+import {
+  gfmTaskListItem,
+  gfmTaskListItemHtml
+} from 'micromark-extension-gfm-task-list-item'
 
 /**
  * Support GFM or markdown on github.com.
@@ -33,15 +30,19 @@ import tasklistHtml from 'micromark-extension-gfm-task-list-item/html.js'
  * @returns {Extension}
  */
 export function gfm(options) {
-  // @ts-expect-error: hush
-  return combineExtensions([autolink, strikethrough(options), table, tasklist])
+  return combineExtensions([
+    gfmAutolinkLiteral,
+    gfmStrikethrough(options),
+    gfmTable,
+    gfmTaskListItem
+  ])
 }
 
 /** @type {HtmlExtension} */
 export const gfmHtml = combineHtmlExtensions([
-  autolinkHtml,
-  strikethroughHtml,
-  tableHtml,
-  tagfilterHtml,
-  tasklistHtml
+  gfmAutolinkLiteralHtml,
+  gfmStrikethroughHtml,
+  gfmTableHtml,
+  gfmTagfilterHtml,
+  gfmTaskListItemHtml
 ])
