@@ -1,21 +1,15 @@
-/**
- * @typedef {import('hast').Root} Root
- */
-
-import {promises as fs} from 'fs'
-import path from 'path'
+import {promises as fs} from 'node:fs'
+import path from 'node:path'
 import fetch from 'node-fetch'
-import unified from 'unified'
-import parse from 'rehype-parse'
+import {unified} from 'unified'
+import rehypeParse from 'rehype-parse'
 import {select, selectAll} from 'hast-util-select'
 import {toText} from 'hast-util-to-text'
 
 fetch('https://github.github.com/gfm/')
   .then((response) => response.text())
   .then((doc) => {
-    /** @type {Root} */
-    // @ts-expect-error It’s fine.
-    const tree = unified().use(parse).parse(doc)
+    const tree = unified().use(rehypeParse).parse(doc)
     /** @type {Array.<{category: string, input: string, output: string}>} */
     const data = []
     const $extensions = selectAll('div.extension', tree)
@@ -47,12 +41,12 @@ fetch('https://github.github.com/gfm/')
 
     return data
   })
-  .then((data) => {
-    return fs.writeFile(
+  .then((data) =>
+    fs.writeFile(
       path.join('test', 'spec.js'),
       'export const spec = ' + JSON.stringify(data, null, 2) + '\n'
     )
-  })
+  )
   .then(() => {
     console.log('spec ✔')
   })
