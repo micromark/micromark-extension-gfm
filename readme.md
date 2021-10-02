@@ -84,7 +84,7 @@ import {gfm, gfmHtml} from 'micromark-extension-gfm'
 const output = micromark(fs.readFileSync('example.md'), {
   allowDangerousHtml: true,
   extensions: [gfm()],
-  htmlExtensions: [gfmHtml]
+  htmlExtensions: [gfmHtml()]
 })
 
 console.log(output)
@@ -130,8 +130,8 @@ There is no default export.
 Support [GFM][] or markdown on github.com.
 `gfm` is a function that can be called with options and returns an extension for
 micromark to parse GFM (can be passed in `extensions`).
-`gfmHtml` is an extension for micromark to compile as elements (can be passed in
-`htmlExtensions`).
+`gfmHtml` is a function that can be called and returns an extension for
+micromark to compile as elements (can be passed in `htmlExtensions`).
 
 ##### `options`
 

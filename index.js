@@ -38,11 +38,17 @@ export function gfm(options) {
   ])
 }
 
-/** @type {HtmlExtension} */
-export const gfmHtml = combineHtmlExtensions([
-  gfmAutolinkLiteralHtml,
-  gfmStrikethroughHtml,
-  gfmTableHtml,
-  gfmTagfilterHtml,
-  gfmTaskListItemHtml
-])
+/**
+ * Support to compile GFM to HTML.
+ *
+ * @returns {HtmlExtension}
+ */
+export function gfmHtml() {
+  return combineHtmlExtensions([
+    gfmAutolinkLiteralHtml,
+    gfmStrikethroughHtml,
+    gfmTableHtml,
+    gfmTagfilterHtml,
+    gfmTaskListItemHtml
+  ])
+}

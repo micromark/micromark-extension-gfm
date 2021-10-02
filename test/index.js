@@ -12,7 +12,7 @@ test('markdown -> html (micromark)', (t) => {
         allowDangerousHtml: true,
         allowDangerousProtocol: true,
         extensions: [gfm({singleTilde: false})],
-        htmlExtensions: [gfmHtml]
+        htmlExtensions: [gfmHtml()]
       }),
       spec[index].output,
       spec[index].category + ' (' + index + ')'
