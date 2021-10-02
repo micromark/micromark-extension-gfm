@@ -10,6 +10,7 @@
     "strikethrough",
     "tasklist",
     "autolink",
+    "footnote",
     "tagfilter",
     "github",
     "gfm",

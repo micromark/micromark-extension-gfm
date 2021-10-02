@@ -24,6 +24,8 @@ If you don’t need all of GFM, the extensions can be used separately:
 
 *   [`micromark/micromark-extension-gfm-autolink-literal`](https://github.com/micromark/micromark-extension-gfm-autolink-literal)
     — support GFM [autolink literals][]
+*   [`micromark/micromark-extension-gfm-footnote`](https://github.com/micromark/micromark-extension-gfm-footnote)
+    — support GFM footnotes
 *   [`micromark/micromark-extension-gfm-strikethrough`](https://github.com/micromark/micromark-extension-gfm-strikethrough)
     — support GFM [strikethrough][]
 *   [`micromark/micromark-extension-gfm-table`](https://github.com/micromark/micromark-extension-gfm-table)
@@ -169,6 +171,8 @@ Passed as [`singleTilde`][single-tilde] in
     — the smallest commonmark-compliant markdown parser that exists
 *   [`micromark/micromark-extension-gfm-autolink-literal`](https://github.com/micromark/micromark-extension-gfm-autolink-literal)
     — support GFM [autolink literals][]
+*   [`micromark/micromark-extension-gfm-footnote`](https://github.com/micromark/micromark-extension-gfm-footnote)
+    — support GFM footnotes
 *   [`micromark/micromark-extension-gfm-strikethrough`](https://github.com/micromark/micromark-extension-gfm-strikethrough)
     — support GFM [strikethrough][]
 *   [`micromark/micromark-extension-gfm-table`](https://github.com/micromark/micromark-extension-gfm-table)
