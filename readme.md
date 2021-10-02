@@ -142,7 +142,7 @@ There is no default export.
 
 ### `gfm(options?)`
 
-### `gfmHtml`
+### `gfmHtml(htmlOptions?)`
 
 Support [GFM][] or markdown on github.com.
 `gfm` is a function that can be called with options and returns an extension for
@@ -156,6 +156,26 @@ micromark to compile as elements (can be passed in `htmlExtensions`).
 
 Passed as [`singleTilde`][single-tilde] in
 [`micromark-extension-gfm-strikethrough`][mm-strikethrough].
+
+###### `htmlOptions.clobberPrefix`
+
+Prefix to use before the `id` attribute to prevent it from *clobbering*
+attributes (`string`, default: `'user-content-'`).
+Passed as [`clobberPrefix`][clobber-prefix] in
+[`micromark-extension-gfm-footnote`][mm-footnote].
+
+###### `htmlOptions.label`
+
+Label to use for the footnotes section (`string`, default: `'Footnotes'`).
+Passed as [`label`][label] in
+[`micromark-extension-gfm-footnote`][mm-footnote].
+
+###### `htmlOptions.backLabel`
+
+Label to use from backreferences back to their footnote call (`string`, default:
+`'Back to content'`).
+Passed as [`backLabel`][backlabel] in
+[`micromark-extension-gfm-footnote`][mm-footnote].
 
 ## Related
 
@@ -259,5 +279,13 @@ abide by its terms.
 [tagfilter]: https://github.github.com/gfm/#disallowed-raw-html-extension-
 
 [single-tilde]: https://github.com/micromark/micromark-extension-gfm-strikethrough#optionssingletilde
+
+[clobber-prefix]: https://github.com/micromark/micromark-extension-gfm-footnote#htmloptionsclobberprefix
+
+[label]: https://github.com/micromark/micromark-extension-gfm-footnote#htmloptionslabel
+
+[backlabel]: https://github.com/micromark/micromark-extension-gfm-footnote#htmloptionsbacklabel
+
+[mm-footnote]: https://github.com/micromark/micromark-extension-gfm-footnote
 
 [mm-strikethrough]: https://github.com/micromark/micromark-extension-gfm-strikethrough
