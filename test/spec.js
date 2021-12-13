@@ -21,7 +21,13 @@ export const spec = [
     category: 'HTML - Autolinks',
     input: '<a href="http://www.example.com">http://www.example.com</a>\n',
     output:
-      '<a href="http://www.example.com">www.example.com</a>\n'
+      '<p><a href="http://www.example.com">www.example.com</a></p>\n'
+  },
+  {
+    category: 'HTML - Autolinks',
+    input: '<a href="http://www.example.com">www.example.com</a>\n',
+    output:
+      '<p><a href="http://www.example.com">www.example.com</a></p>\n'
   },
   {
     category: 'Tables - Autolinks',
