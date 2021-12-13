@@ -19,9 +19,15 @@ export const spec = [
   },
   {
     category: 'HTML - Autolinks',
-    input: '<a href="http://www.example.com">http://www.example.com</a>\n',
+    input: '/media/oembed?url=https://www.example.com/%3Ffoo=bar\n',
     output:
-      '<p><a href="http://www.example.com">www.example.com</a></p>\n'
+      '<p>/media/oembed?url=https://www.example.com/%3Ffoo=bar</p>\n'
+  },
+  {
+    category: 'HTML - Autolinks',
+    input: '/media/oembed?url=https%3a//www.example.com/%3Ffoo=bar\n',
+    output:
+      '<p>/media/oembed?url=https%3a//www.example.com/%3Ffoo=bar</p>\n'
   },
   {
     category: 'HTML - Autolinks',
