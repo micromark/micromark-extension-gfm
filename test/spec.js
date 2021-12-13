@@ -6,6 +6,18 @@ export const spec = [
       '<table>\n<thead>\n<tr>\n<th>foo</th>\n<th>bar</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>baz</td>\n<td>bim</td>\n</tr>\n</tbody>\n</table>\n'
   },
   {
+    category: 'Tables - HTML',
+    input: '| foo | bar |\n| --- | --- |\n| baz | <a href="http://www.example.com">www.example.com</a> |\n',
+    output:
+      '<table>\n<thead>\n<tr>\n<th>foo</th>\n<th>bar</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>baz</td>\n<td><a href="http://www.example.com">www.example.com</a></td>\n</tr>\n</tbody>\n</table>\n'
+  },
+  {
+    category: 'Tables - Autolinks',
+    input: '| foo | bar |\n| --- | --- |\n| baz | www.example.com |\n',
+    output:
+      '<table>\n<thead>\n<tr>\n<th>foo</th>\n<th>bar</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>baz</td>\n<td><a href="http://www.example.com">www.example.com</a></td>\n</tr>\n</tbody>\n</table>\n'
+  },
+  {
     category: 'Tables',
     input: '| abc | defghi |\n:-: | -----------:\nbar | baz\n',
     output:
