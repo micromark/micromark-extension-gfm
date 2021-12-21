@@ -49,6 +49,7 @@
     "@types/node-fetch": "^3.0.0",
     "@types/tape": "^4.0.0",
     "c8": "^7.0.0",
+    "create-gfm-fixtures": "^1.0.0",
     "hast-util-select": "^5.0.0",
     "hast-util-to-text": "^3.0.0",
     "micromark": "^3.0.0",
