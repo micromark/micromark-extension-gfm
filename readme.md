@@ -66,17 +66,17 @@ In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
 npm install micromark-extension-gfm
 ```
 
-In Deno with [Skypack][]:
+In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import {gfm, gfmHtml} from 'https://cdn.skypack.dev/micromark-extension-gfm@2?dts'
+import {gfm, gfmHtml} from 'https://esm.sh/micromark-extension-gfm@2'
 ```
 
-In browsers with [Skypack][]:
+In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import {gfm, gfmHtml} from 'https://cdn.skypack.dev/micromark-extension-gfm@2?min'
+  import {gfm, gfmHtml} from 'https://esm.sh/micromark-extension-gfm@2?bundle'
 </script>
 ```
 
@@ -303,7 +303,7 @@ abide by its terms.
 
 [npm]: https://docs.npmjs.com/cli/install
 
-[skypack]: https://www.skypack.dev
+[esmsh]: https://esm.sh
 
 [license]: license
 
