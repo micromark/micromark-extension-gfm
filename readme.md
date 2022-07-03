@@ -8,7 +8,7 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-**[micromark][]** extension to support GitHub flavored markdown ([GFM][]).
+[micromark][] extension to support [GitHub flavored markdown][gfm] (GFM).
 
 ## Contents
 
@@ -19,31 +19,40 @@
 *   [API](#api)
     *   [`gfm(options?)`](#gfmoptions)
     *   [`gfmHtml(htmlOptions?)`](#gfmhtmlhtmloptions)
+*   [Authoring](#authoring)
+*   [HTML](#html)
+*   [CSS](#css)
+*   [Syntax](#syntax)
 *   [Types](#types)
 *   [Compatibility](#compatibility)
 *   [Security](#security)
-*   [Related](#related)
 *   [Contribute](#contribute)
 *   [License](#license)
 
 ## What is this?
 
-This package is a micromark extension to add support for all GFM features:
-autolink literals, footnotes, strikethrough, tables, tagfilter, and tasklists.
+This package contains extensions that add support for all features enabled by
+GFM to [`micromark`][micromark].
+It supports autolink literals, footnotes, strikethrough, tables, tagfilter, and
+tasklists.
 
 ## When to use this
 
-You probably should use this package if you use micromark and want to enable
-GFM.
-When working with syntax trees, you’d want to combine this package with
-[`mdast-util-gfm`][mdast-util-gfm].
+These tools are all low-level.
+In many cases, you want to use [`remark-gfm`][plugin] with remark instead.
 
-You can also use the underlying features separately:
+When you do want to use `micromark`, you likely want to use
+this to support all GFM features.
+
+When working with `mdast-util-from-markdown`, you must combine this package with
+[`mdast-util-gfm`][util].
+
+Alternatively, you can also use the underlying features separately:
 
 *   [`micromark/micromark-extension-gfm-autolink-literal`][gfm-autolink-literal]
     — support GFM [autolink literals][]
 *   [`micromark/micromark-extension-gfm-footnote`][gfm-footnote]
-    — support GFM footnotes
+    — support GFM [footnotes][]
 *   [`micromark/micromark-extension-gfm-strikethrough`][gfm-strikethrough]
     — support GFM [strikethrough][]
 *   [`micromark/micromark-extension-gfm-table`][gfm-table]
@@ -53,14 +62,10 @@ You can also use the underlying features separately:
 *   [`micromark/micromark-extension-gfm-task-list-item`][gfm-task-list-item]
     — support GFM [tasklists][]
 
-These tools are all rather low-level.
-In most cases, you’d instead want to use [`remark-gfm`][remark-gfm] with
-[remark][].
-
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
+In Node.js (version 12.20+, 14.14+, 16.0+, or 18.0+), install with [npm][]:
 
 ```sh
 npm install micromark-extension-gfm
@@ -82,7 +87,7 @@ In browsers with [`esm.sh`][esmsh]:
 
 ## Use
 
-Say we have the following file `example.md`:
+Say our document `example.md` contains:
 
 ```markdown
 # GFM
@@ -116,14 +121,14 @@ A note[^1]
 * [x] done
 ```
 
-And our module `example.js` looks as follows:
+…and our module `example.js` looks as follows:
 
 ```js
-import fs from 'node:fs'
+import fs from 'node:fs/promises'
 import {micromark} from 'micromark'
 import {gfm, gfmHtml} from 'micromark-extension-gfm'
 
-const output = micromark(fs.readFileSync('example.md'), {
+const output = micromark(await fs.readFile('example.md'), {
   allowDangerousHtml: true,
   extensions: [gfm()],
   htmlExtensions: [gfmHtml()]
@@ -132,7 +137,7 @@ const output = micromark(fs.readFileSync('example.md'), {
 console.log(output)
 ```
 
-Now, running `node example` yields:
+…now running `node example.js` yields:
 
 ```html
 <h1>GFM</h1>
@@ -171,17 +176,19 @@ Now, running `node example` yields:
 
 ## API
 
-This package exports the following identifiers: `gfm`, `gfmHtml`.
+This package exports the identifiers `gfm` and `gfmHtml`.
 There is no default export.
 
-This extensions supports the endorsed [`development` condition][dev].
+The export map supports the endorsed [`development` condition][condition].
 Run `node --conditions development module.js` to get instrumented dev code.
 Without this condition, production code is loaded.
 
 ### `gfm(options?)`
 
-A function that can be called to get an extension for micromark to parse GFM
-(can be passed in `extensions`).
+Add support for parsing GFM in markdown.
+
+Function that can be called to get a syntax extension for micromark (passed in
+`extensions`).
 
 ##### `options`
 
@@ -192,13 +199,16 @@ Configuration (optional).
 Whether to support strikethrough with a single tilde (`boolean`, default:
 `true`).
 Single tildes work on github.com, but are technically prohibited by GFM.
+
 Passed as [`singleTilde`][single-tilde] in
 [`micromark-extension-gfm-strikethrough`][gfm-strikethrough].
 
 ### `gfmHtml(htmlOptions?)`
 
-A function that can be called to get an extension to compile GFM to HTML (can be
-passed in `htmlExtensions`).
+Add support for turning GFM in markdown to HTML.
+
+Function that can be called to get an HTML extension for micromark (passed in
+`htmlExtensions`).
 
 ##### `htmlOptions`
 
@@ -207,13 +217,27 @@ Configuration (optional).
 ###### `htmlOptions.clobberPrefix`
 
 Prefix to use before the `id` attribute to prevent it from *clobbering*
-attributes (`string`, default: `'user-content-'`).
+(`string`, default: `'user-content-'`).
+DOM clobbering is this:
+
+```html
+<p id=x></p>
+<script>console.log(x)</script>
+<!-- The element is printed to the console. -->
+```
+
+Elements by their ID are made available in browsers on the `window` object.
+Using a prefix prevents this from being a problem
+
 Passed as [`clobberPrefix`][clobber-prefix] in
 [`micromark-extension-gfm-footnote`][gfm-footnote].
 
 ###### `htmlOptions.label`
 
 Label to use for the footnotes section (`string`, default: `'Footnotes'`).
+Affects screen reader users.
+Change it if you’re authoring in a different language.
+
 Passed as [`label`][label] in
 [`micromark-extension-gfm-footnote`][gfm-footnote].
 
@@ -221,43 +245,71 @@ Passed as [`label`][label] in
 
 Label to use from backreferences back to their footnote call (`string`, default:
 `'Back to content'`).
+Affects screen reader users.
+Change it if you’re authoring in a different language.
+
 Passed as [`backLabel`][backlabel] in
 [`micromark-extension-gfm-footnote`][gfm-footnote].
+
+## Authoring
+
+For recommendations on how to author GFM, see each corresponding readme:
+
+*   [autolink literal](https://github.com/micromark/micromark-extension-gfm-autolink-literal#authoring)
+*   [footnote](https://github.com/micromark/micromark-extension-gfm-footnote#authoring)
+*   [strikethrough](https://github.com/micromark/micromark-extension-gfm-strikethrough#authoring)
+*   [table](https://github.com/micromark/micromark-extension-gfm-table#authoring)
+*   tagfilter n/a
+*   [tasklists](https://github.com/micromark/micromark-extension-gfm-task-list-item#authoring)
+
+## HTML
+
+For info on what HTML features GFM relates to, see each corresponding readme:
+
+*   [autolink literal](https://github.com/micromark/micromark-extension-gfm-autolink-literal#html)
+*   [footnote](https://github.com/micromark/micromark-extension-gfm-footnote#html)
+*   [strikethrough](https://github.com/micromark/micromark-extension-gfm-strikethrough#html)
+*   [table](https://github.com/micromark/micromark-extension-gfm-table#html)
+*   [tagfilter](https://github.com/micromark/micromark-extension-gfm-tagfilter#html)
+*   [tasklists](https://github.com/micromark/micromark-extension-gfm-task-list-item#html)
+
+## CSS
+
+For info on how GitHub styles these features, see each corresponding readme:
+
+*   [autolink literal](https://github.com/micromark/micromark-extension-gfm-autolink-literal#css)
+*   [footnote](https://github.com/micromark/micromark-extension-gfm-footnote#css)
+*   [strikethrough](https://github.com/micromark/micromark-extension-gfm-strikethrough#css)
+*   [table](https://github.com/micromark/micromark-extension-gfm-table#css)
+*   tagfilter n/a
+*   [tasklists](https://github.com/micromark/micromark-extension-gfm-task-list-item#css)
+
+## Syntax
+
+For info on the syntax of these features, see each corresponding readme:
+
+*   [autolink literal](https://github.com/micromark/micromark-extension-gfm-autolink-literal#syntax)
+*   [footnote](https://github.com/micromark/micromark-extension-gfm-footnote#syntax)
+*   [strikethrough](https://github.com/micromark/micromark-extension-gfm-strikethrough#syntax)
+*   [table](https://github.com/micromark/micromark-extension-gfm-table#syntax)
+*   tagfilter n/a
+*   [tasklists](https://github.com/micromark/micromark-extension-gfm-task-list-item#syntax)
 
 ## Types
 
 This package is fully typed with [TypeScript][].
-It exports additional `Options` and `HtmlOptions` types that model their
-respective interfaces.
+It exports the additional types `Options` and `HtmlOptions`.
 
 ## Compatibility
 
 This package is at least compatible with all maintained versions of Node.js.
-As of now, that is Node.js 12.20+, 14.14+, and 16.0+.
+As of now, that is Node.js 12.20+, 14.14+, 16.0+, and 18.0+.
 It also works in Deno and modern browsers.
 
 ## Security
 
-This package is safe by default.
-
-## Related
-
-*   [`syntax-tree/mdast-util-gfm`][mdast-util-gfm]
-    — support GFM in mdast
-*   [`remarkjs/remark-gfm`][remark-gfm]
-    — support GFM in remark
-*   [`micromark/micromark-extension-gfm-autolink-literal`][gfm-autolink-literal]
-    — support GFM [autolink literals][]
-*   [`micromark/micromark-extension-gfm-footnote`][gfm-footnote]
-    — support GFM footnotes
-*   [`micromark/micromark-extension-gfm-strikethrough`][gfm-strikethrough]
-    — support GFM [strikethrough][]
-*   [`micromark/micromark-extension-gfm-table`][gfm-table]
-    — support GFM [tables][]
-*   [`micromark/micromark-extension-gfm-tagfilter`][gfm-tagfilter]
-    — support GFM [tagfilter][]
-*   [`micromark/micromark-extension-gfm-task-list-item`][gfm-task-list-item]
-    — support GFM [tasklists][]
+This package is safe.
+Setting `htmlOptions.clobberPrefix = ''` is dangerous.
 
 ## Contribute
 
@@ -309,23 +361,21 @@ abide by its terms.
 
 [author]: https://wooorm.com
 
-[contributing]: https://github.com/micromark/.github/blob/HEAD/contributing.md
+[contributing]: https://github.com/micromark/.github/blob/main/contributing.md
 
-[support]: https://github.com/micromark/.github/blob/HEAD/support.md
+[support]: https://github.com/micromark/.github/blob/main/support.md
 
-[coc]: https://github.com/micromark/.github/blob/HEAD/code-of-conduct.md
+[coc]: https://github.com/micromark/.github/blob/main/code-of-conduct.md
 
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
-[dev]: https://nodejs.org/api/packages.html#packages_resolving_user_conditions
+[condition]: https://nodejs.org/api/packages.html#packages_resolving_user_conditions
 
 [typescript]: https://www.typescriptlang.org
 
 [micromark]: https://github.com/micromark/micromark
 
-[remark]: https://github.com/remarkjs/remark
-
-[remark-gfm]: https://github.com/remarkjs/remark-gfm
+[plugin]: https://github.com/remarkjs/remark-gfm
 
 [gfm]: https://github.github.com/gfm/
 
@@ -338,6 +388,8 @@ abide by its terms.
 [autolink literals]: https://github.github.com/gfm/#autolinks-extension-
 
 [tagfilter]: https://github.github.com/gfm/#disallowed-raw-html-extension-
+
+[footnotes]: https://github.blog/changelog/2021-09-30-footnotes-now-supported-in-markdown-fields/
 
 [single-tilde]: https://github.com/micromark/micromark-extension-gfm-strikethrough#optionssingletilde
 
@@ -359,4 +411,4 @@ abide by its terms.
 
 [gfm-task-list-item]: https://github.com/micromark/micromark-extension-gfm-task-list-item
 
-[mdast-util-gfm]: https://github.com/syntax-tree/mdast-util-gfm
+[util]: https://github.com/syntax-tree/mdast-util-gfm
