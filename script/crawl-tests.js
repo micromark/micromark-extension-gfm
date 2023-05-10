@@ -1,53 +1,51 @@
+/**
+ * @typedef Datum
+ * @property {string} category
+ * @property {string} input
+ * @property {string} output
+ */
+
 import {promises as fs} from 'node:fs'
-import path from 'node:path'
-import fetch from 'node-fetch'
-import {unified} from 'unified'
-import rehypeParse from 'rehype-parse'
+import {fetch} from 'undici'
+import {fromHtml} from 'hast-util-from-html'
 import {select, selectAll} from 'hast-util-select'
 import {toText} from 'hast-util-to-text'
 
-fetch('https://github.github.com/gfm/')
-  .then((response) => response.text())
-  .then((doc) => {
-    const tree = unified().use(rehypeParse).parse(doc)
-    /** @type {Array.<{category: string, input: string, output: string}>} */
-    const data = []
-    const $extensions = selectAll('div.extension', tree)
-    let index = -1
+const response = await fetch('https://github.github.com/gfm/')
+const text = await response.text()
+const tree = fromHtml(text)
+/** @type {Array<Datum>} */
+const data = []
+const $extensions = selectAll('div.extension', tree)
+let index = -1
 
-    while (++index < $extensions.length) {
-      const $extension = $extensions[index]
-      const $examples = selectAll('.example', $extension)
-      const $heading = select('h2', $extension)
-      if (!$heading) throw new Error('Missing heading in `' + index + '`')
-      const category = toText($heading)
-        // Remove number.
-        .replace(/^\d+\.\d+\s*/, '')
-        // Remove extension.
-        .replace(/\s*\(extension\)$/, '')
-      let offset = -1
+while (++index < $extensions.length) {
+  const $extension = $extensions[index]
+  const $examples = selectAll('.example', $extension)
+  const $heading = select('h2', $extension)
+  if (!$heading) throw new Error('Missing heading in `' + index + '`')
+  const category = toText($heading)
+    // Remove number.
+    .replace(/^\d+\.\d+\s*/, '')
+    // Remove extension.
+    .replace(/\s*\(extension\)$/, '')
+  let offset = -1
 
-      while (++offset < $examples.length) {
-        const $example = $examples[offset]
-        const columns = selectAll('.column pre', $example)
+  while (++offset < $examples.length) {
+    const $example = $examples[offset]
+    const columns = selectAll('.column pre', $example)
 
-        data.push({
-          category,
-          input: toText(columns[0]).replace(/→/g, '\t'),
-          output: toText(columns[1]).replace(/→/g, '\t')
-        })
-      }
-    }
+    data.push({
+      category,
+      input: toText(columns[0]).replace(/→/g, '\t'),
+      output: toText(columns[1]).replace(/→/g, '\t')
+    })
+  }
+}
 
-    return data
-  })
-  .then((data) =>
-    fs.writeFile(
-      path.join('test', 'spec.js'),
-      'export const spec = ' + JSON.stringify(data, null, 2) + '\n'
-    )
-  )
-  // eslint-disable-next-line unicorn/prefer-top-level-await
-  .then(() => {
-    console.log('spec ✔')
-  })
+await fs.writeFile(
+  new URL('../test/spec.js', import.meta.url),
+  'export const spec = ' + JSON.stringify(data, null, 2) + '\n'
+)
+
+console.log('spec ✔')
