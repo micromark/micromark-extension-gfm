@@ -1,8 +1,8 @@
 /**
+ * @typedef {import('micromark-extension-gfm-footnote').HtmlOptions} HtmlOptions
+ * @typedef {import('micromark-extension-gfm-strikethrough').Options} Options
  * @typedef {import('micromark-util-types').Extension} Extension
  * @typedef {import('micromark-util-types').HtmlExtension} HtmlExtension
- * @typedef {import('micromark-extension-gfm-strikethrough').Options} Options
- * @typedef {import('micromark-extension-gfm-footnote').HtmlOptions} HtmlOptions
  */
 
 import {
