@@ -8,7 +8,15 @@ import rehypeSortAttributes from 'rehype-sort-attributes'
 import {gfm, gfmHtml} from '../index.js'
 import {spec} from './spec.js'
 
-test('markdown -> html (micromark)', async () => {
+test('core', async function () {
+  assert.deepEqual(
+    Object.keys(await import('micromark-extension-gfm')).sort(),
+    ['gfm', 'gfmHtml'],
+    'should expose the public api'
+  )
+})
+
+test('markdown -> html (micromark)', async function () {
   let index = -1
 
   while (++index < spec.length) {
@@ -44,7 +52,7 @@ test('markdown -> html (micromark)', async () => {
   }
 })
 
-test('fixtures', async () => {
+test('fixtures', async function () {
   const base = new URL('fixtures/', import.meta.url)
 
   await createGfmFixtures(base, {rehypeStringify: {closeSelfClosing: true}})
