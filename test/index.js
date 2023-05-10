@@ -25,7 +25,9 @@ test('markdown -> html (micromark)', async (t) => {
 
     // The GFM spec orders some attributes differently from the website.
     // In our tooling we prefer the website, so here we have to normalize both:
-    const processor = rehype().use(rehypeSortAttributes)
+    const processor = rehype()
+      .use(rehypeSortAttributes)
+      .use({settings: {fragment: true}})
     const actual = micromark(check.input, {
       allowDangerousHtml: true,
       allowDangerousProtocol: true,
