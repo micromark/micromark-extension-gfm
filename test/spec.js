@@ -60,13 +60,18 @@ export const spec = [
   },
   {
     category: 'Strikethrough',
-    input: '~~Hi~~ Hello, world!\n',
-    output: '<p><del>Hi</del> Hello, world!</p>\n'
+    input: '~~Hi~~ Hello, ~there~ world!\n',
+    output: '<p><del>Hi</del> Hello, <del>there</del> world!</p>\n'
   },
   {
     category: 'Strikethrough',
     input: 'This ~~has a\n\nnew paragraph~~.\n',
     output: '<p>This ~~has a</p>\n<p>new paragraph~~.</p>\n'
+  },
+  {
+    category: 'Strikethrough',
+    input: 'This will ~~~not~~~ strike.\n',
+    output: '<p>This will ~~~not~~~ strike.</p>\n'
   },
   {
     category: 'Autolinks',
@@ -136,6 +141,26 @@ export const spec = [
     input: 'a.b-c_d@a.b\n\na.b-c_d@a.b.\n\na.b-c_d@a.b-\n\na.b-c_d@a.b_\n',
     output:
       '<p><a href="mailto:a.b-c_d@a.b">a.b-c_d@a.b</a></p>\n<p><a href="mailto:a.b-c_d@a.b">a.b-c_d@a.b</a>.</p>\n<p>a.b-c_d@a.b-</p>\n<p>a.b-c_d@a.b_</p>\n'
+  },
+  {
+    category: 'Autolinks',
+    input:
+      'mailto:foo@bar.baz\n\nmailto:a.b-c_d@a.b\n\nmailto:a.b-c_d@a.b.\n\nmailto:a.b-c_d@a.b/\n\nmailto:a.b-c_d@a.b-\n\nmailto:a.b-c_d@a.b_\n\nxmpp:foo@bar.baz\n\nxmpp:foo@bar.baz.\n',
+    output:
+      '<p><a href="mailto:foo@bar.baz">mailto:foo@bar.baz</a></p>\n<p><a href="mailto:a.b-c_d@a.b">mailto:a.b-c_d@a.b</a></p>\n<p><a href="mailto:a.b-c_d@a.b">mailto:a.b-c_d@a.b</a>.</p>\n<p><a href="mailto:a.b-c_d@a.b">mailto:a.b-c_d@a.b</a>/</p>\n<p>mailto:a.b-c_d@a.b-</p>\n<p>mailto:a.b-c_d@a.b_</p>\n<p><a href="xmpp:foo@bar.baz">xmpp:foo@bar.baz</a></p>\n<p><a href="xmpp:foo@bar.baz">xmpp:foo@bar.baz</a>.</p>\n'
+  },
+  {
+    category: 'Autolinks',
+    input:
+      'xmpp:foo@bar.baz/txt\n\nxmpp:foo@bar.baz/txt@bin\n\nxmpp:foo@bar.baz/txt@bin.com\n',
+    output:
+      '<p><a href="xmpp:foo@bar.baz/txt">xmpp:foo@bar.baz/txt</a></p>\n<p><a href="xmpp:foo@bar.baz/txt@bin">xmpp:foo@bar.baz/txt@bin</a></p>\n<p><a href="xmpp:foo@bar.baz/txt@bin.com">xmpp:foo@bar.baz/txt@bin.com</a></p>\n'
+  },
+  {
+    category: 'Autolinks',
+    input: 'xmpp:foo@bar.baz/txt/bin\n',
+    output:
+      '<p><a href="xmpp:foo@bar.baz/txt">xmpp:foo@bar.baz/txt</a>/bin</p>\n'
   },
   {
     category: 'Disallowed Raw HTML',
