@@ -1,11 +1,9 @@
-import fs from 'node:fs'
-import path from 'node:path'
-import {URL} from 'node:url'
-import test from 'tape'
+import {promises as fs} from 'node:fs'
+import {createGfmFixtures} from 'create-gfm-fixtures'
+import {micromark} from 'micromark'
 import {rehype} from 'rehype'
 import rehypeSortAttributes from 'rehype-sort-attributes'
-import {micromark} from 'micromark'
-import {createGfmFixtures} from 'create-gfm-fixtures'
+import test from 'tape'
 import {gfm, gfmHtml} from '../index.js'
 import {spec} from './spec.js'
 
@@ -52,13 +50,22 @@ test('fixtures', async (t) => {
 
   await createGfmFixtures(base, {rehypeStringify: {closeSelfClosing: true}})
 
-  const files = fs.readdirSync(base).filter((d) => /\.md$/.test(d))
+  const files = await fs.readdir(base)
+  const extname = '.md'
+
   let index = -1
 
   while (++index < files.length) {
-    const name = path.basename(files[index], '.md')
-    const input = fs.readFileSync(new URL(name + '.md', base))
-    const expected = String(fs.readFileSync(new URL(name + '.html', base)))
+    const d = files[index]
+
+    if (!d.endsWith(extname)) {
+      continue
+    }
+
+    const name = d.slice(0, -extname.length)
+
+    const input = await fs.readFile(new URL(name + '.md', base))
+    const expected = String(await fs.readFile(new URL(name + '.html', base)))
     let actual = micromark(input, {
       allowDangerousHtml: true,
       allowDangerousProtocol: true,
