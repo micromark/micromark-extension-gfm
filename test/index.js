@@ -1,13 +1,14 @@
+import assert from 'node:assert/strict'
 import {promises as fs} from 'node:fs'
+import test from 'node:test'
 import {createGfmFixtures} from 'create-gfm-fixtures'
 import {micromark} from 'micromark'
 import {rehype} from 'rehype'
 import rehypeSortAttributes from 'rehype-sort-attributes'
-import test from 'tape'
 import {gfm, gfmHtml} from '../index.js'
 import {spec} from './spec.js'
 
-test('markdown -> html (micromark)', async (t) => {
+test('markdown -> html (micromark)', async () => {
   let index = -1
 
   while (++index < spec.length) {
@@ -35,17 +36,15 @@ test('markdown -> html (micromark)', async (t) => {
 
     const cleanActual = String(await processor.process(actual))
     const cleanExpected = String(await processor.process(check.output))
-    t.deepEqual(
+    assert.equal(
       cleanActual,
       cleanExpected,
       spec[index].category + ' (' + index + ')'
     )
   }
-
-  t.end()
 })
 
-test('fixtures', async (t) => {
+test('fixtures', async () => {
   const base = new URL('fixtures/', import.meta.url)
 
   await createGfmFixtures(base, {rehypeStringify: {closeSelfClosing: true}})
@@ -90,8 +89,6 @@ test('fixtures', async (t) => {
       )
     }
 
-    t.deepEqual(actual, expected, name)
+    assert.equal(actual, expected, name)
   }
-
-  t.end()
 })
