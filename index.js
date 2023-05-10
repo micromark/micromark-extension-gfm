@@ -26,16 +26,15 @@ import {
 } from 'micromark-extension-gfm-task-list-item'
 
 /**
- * Add support for parsing GFM in markdown.
+ * Create an extension for `micromark` to enable GFM syntax.
  *
- * Function that can be called to get a syntax extension for micromark (passed
- * in `extensions`).
- *
- * @param {Options} [options]
+ * @param {Options | null | undefined} [options]
  *   Configuration (optional).
+ *
  *   Passed to `micromark-extens-gfm-strikethrough`.
  * @returns {Extension}
- *   Syntax extension for micromark (passed in `extensions`).
+ *   Extension for `micromark` that can be passed in `extensions` to
+ *   enable GFM syntax.
  */
 export function gfm(options) {
   return combineExtensions([
@@ -48,16 +47,15 @@ export function gfm(options) {
 }
 
 /**
- * Add support for turning GFM in markdown to HTML.
+ * Create an extension for `micromark` to support GFM when serializing to HTML.
  *
- * Function that can be called to get an HTML extension for micromark (passed
- * in `htmlExtensions`).
+ * @param {HtmlOptions | null | undefined} [options]
+ *   Configuration.
  *
- * @param {HtmlOptions} [options]
- *   Configuration (optional).
  *   Passed to `micromark-extens-gfm-footnote`.
  * @returns {HtmlExtension}
- *   HTML extension for micromark (passed in `htmlExtensions`).
+ *   Extension for `micromark` that can be passed in `htmlExtensions` to
+ *   support GFM when serializing to HTML.
  */
 export function gfmHtml(options) {
   return combineHtmlExtensions([
