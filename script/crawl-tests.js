@@ -47,6 +47,7 @@ fetch('https://github.github.com/gfm/')
       'export const spec = ' + JSON.stringify(data, null, 2) + '\n'
     )
   )
+  // eslint-disable-next-line unicorn/prefer-top-level-await
   .then(() => {
     console.log('spec ✔')
   })
