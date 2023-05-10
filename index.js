@@ -33,8 +33,8 @@ import {
  *
  *   Passed to `micromark-extens-gfm-strikethrough`.
  * @returns {Extension}
- *   Extension for `micromark` that can be passed in `extensions` to
- *   enable GFM syntax.
+ *   Extension for `micromark` that can be passed in `extensions` to enable GFM
+ *   syntax.
  */
 export function gfm(options) {
   return combineExtensions([
