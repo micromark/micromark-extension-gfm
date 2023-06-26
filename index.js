@@ -50,7 +50,7 @@ export function gfm(options) {
  * Create an extension for `micromark` to support GFM when serializing to HTML.
  *
  * @param {HtmlOptions | null | undefined} [options]
- *   Configuration.
+ *   Configuration (optional).
  *
  *   Passed to `micromark-extens-gfm-footnote`.
  * @returns {HtmlExtension}

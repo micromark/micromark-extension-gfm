@@ -5,11 +5,11 @@
  * @property {string} output
  */
 
-import {promises as fs} from 'node:fs'
-import {fetch} from 'undici'
+import fs from 'node:fs/promises'
 import {fromHtml} from 'hast-util-from-html'
 import {select, selectAll} from 'hast-util-select'
 import {toText} from 'hast-util-to-text'
+import {fetch} from 'undici'
 
 const response = await fetch('https://github.github.com/gfm/')
 const text = await response.text()
@@ -45,7 +45,7 @@ while (++index < $extensions.length) {
 
 await fs.writeFile(
   new URL('../test/spec.js', import.meta.url),
-  'export const spec = ' + JSON.stringify(data, null, 2) + '\n'
+  'export const spec = ' + JSON.stringify(data, undefined, 2) + '\n'
 )
 
 console.log('spec ✔')
