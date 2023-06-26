@@ -77,14 +77,14 @@ npm install micromark-extension-gfm
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import {gfm, gfmHtml} from 'https://esm.sh/micromark-extension-gfm@2'
+import {gfm, gfmHtml} from 'https://esm.sh/micromark-extension-gfm@3'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import {gfm, gfmHtml} from 'https://esm.sh/micromark-extension-gfm@2?bundle'
+  import {gfm, gfmHtml} from 'https://esm.sh/micromark-extension-gfm@3?bundle'
 </script>
 ```
 
