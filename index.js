@@ -38,11 +38,11 @@ import {
  */
 export function gfm(options) {
   return combineExtensions([
-    gfmAutolinkLiteral,
+    gfmAutolinkLiteral(),
     gfmFootnote(),
     gfmStrikethrough(options),
-    gfmTable,
-    gfmTaskListItem
+    gfmTable(),
+    gfmTaskListItem()
   ])
 }
 
@@ -59,11 +59,11 @@ export function gfm(options) {
  */
 export function gfmHtml(options) {
   return combineHtmlExtensions([
-    gfmAutolinkLiteralHtml,
+    gfmAutolinkLiteralHtml(),
     gfmFootnoteHtml(options),
-    gfmStrikethroughHtml,
-    gfmTableHtml,
-    gfmTagfilterHtml,
-    gfmTaskListItemHtml
+    gfmStrikethroughHtml(),
+    gfmTableHtml(),
+    gfmTagfilterHtml(),
+    gfmTaskListItemHtml()
   ])
 }
