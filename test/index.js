@@ -3,17 +3,16 @@ import fs from 'node:fs/promises'
 import test from 'node:test'
 import {createGfmFixtures} from 'create-gfm-fixtures'
 import {micromark} from 'micromark'
+import {gfm, gfmHtml} from 'micromark-extension-gfm'
 import {rehype} from 'rehype'
 import rehypeSortAttributes from 'rehype-sort-attributes'
-import {gfm, gfmHtml} from '../index.js'
 import {spec} from './spec.js'
 
 test('gfm', async function (t) {
-  await t.test('', async function () {
+  await t.test('should expose the public api', async function () {
     assert.deepEqual(
-      Object.keys(await import('../index.js')).sort(),
-      ['gfm', 'gfmHtml'],
-      'should expose the public api'
+      Object.keys(await import('micromark-extension-gfm')).sort(),
+      ['gfm', 'gfmHtml']
     )
   })
 
