@@ -62,7 +62,7 @@ Alternatively, you can also use the underlying features separately:
 When you need a syntax tree, combine this package with
 [`mdast-util-gfm`][mdast-util-gfm].
 
-All these packages are used in [`remark-gfm`][remark-gfm], which focusses on
+All these packages are used in [`remark-gfm`][remark-gfm], which focuses on
 making it easier to transform content by abstracting these internals away.
 
 ## Install
