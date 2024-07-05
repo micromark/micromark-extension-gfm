@@ -12,25 +12,25 @@
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When to use this](#when-to-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`gfm(options?)`](#gfmoptions)
-    *   [`gfmHtml(options?)`](#gfmhtmloptions)
-    *   [`Options`](#options)
-    *   [`HtmlOptions`](#htmloptions)
-*   [Bugs](#bugs)
-*   [Authoring](#authoring)
-*   [HTML](#html)
-*   [CSS](#css)
-*   [Syntax](#syntax)
-*   [Types](#types)
-*   [Compatibility](#compatibility)
-*   [Security](#security)
-*   [Contribute](#contribute)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When to use this](#when-to-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`gfm(options?)`](#gfmoptions)
+  * [`gfmHtml(options?)`](#gfmhtmloptions)
+  * [`Options`](#options)
+  * [`HtmlOptions`](#htmloptions)
+* [Bugs](#bugs)
+* [Authoring](#authoring)
+* [HTML](#html)
+* [CSS](#css)
+* [Syntax](#syntax)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Security](#security)
+* [Contribute](#contribute)
+* [License](#license)
 
 ## What is this?
 
@@ -46,18 +46,18 @@ This project is useful when you want to support GFM in markdown.
 You can use these extensions when you are working with [`micromark`][micromark].
 Alternatively, you can also use the underlying features separately:
 
-*   [`micromark-extension-gfm-autolink-literal`][gfm-autolink-literal]
-    — support GFM [autolink literals][]
-*   [`micromark-extension-gfm-footnote`][gfm-footnote]
-    — support GFM [footnotes][]
-*   [`micromark-extension-gfm-strikethrough`][gfm-strikethrough]
-    — support GFM [strikethrough][]
-*   [`micromark-extension-gfm-table`][gfm-table]
-    — support GFM [tables][]
-*   [`micromark-extension-gfm-tagfilter`][gfm-tagfilter]
-    — support GFM [tagfilter][]
-*   [`micromark-extension-gfm-task-list-item`][gfm-task-list-item]
-    — support GFM [tasklists][]
+* [`micromark-extension-gfm-autolink-literal`][gfm-autolink-literal]
+  — support GFM [autolink literals][]
+* [`micromark-extension-gfm-footnote`][gfm-footnote]
+  — support GFM [footnotes][]
+* [`micromark-extension-gfm-strikethrough`][gfm-strikethrough]
+  — support GFM [strikethrough][]
+* [`micromark-extension-gfm-table`][gfm-table]
+  — support GFM [tables][]
+* [`micromark-extension-gfm-tagfilter`][gfm-tagfilter]
+  — support GFM [tagfilter][]
+* [`micromark-extension-gfm-task-list-item`][gfm-task-list-item]
+  — support GFM [tasklists][]
 
 When you need a syntax tree, combine this package with
 [`mdast-util-gfm`][mdast-util-gfm].
@@ -193,9 +193,9 @@ Create an extension for `micromark` to enable GFM syntax.
 
 ###### Parameters
 
-*   `options` ([`Options`][api-options], optional)
-    — configuration; passed to
-    [`micromark-extens-gfm-strikethrough`][gfm-strikethrough-options]
+* `options` ([`Options`][api-options], optional)
+  — configuration; passed to
+  [`micromark-extens-gfm-strikethrough`][gfm-strikethrough-options]
 
 ###### Returns
 
@@ -208,9 +208,9 @@ Create an extension for `micromark` to support GFM when serializing to HTML.
 
 ###### Parameters
 
-*   `options` ([`HtmlOptions`][api-html-options], optional)
-    — configuration; passed to
-    [`micromark-extens-gfm-footnote`][gfm-footnote-html-options]
+* `options` ([`HtmlOptions`][api-html-options], optional)
+  — configuration; passed to
+  [`micromark-extens-gfm-footnote`][gfm-footnote-html-options]
 
 ###### Returns
 
@@ -246,56 +246,56 @@ export type {HtmlOptions} from 'micromark-extension-gfm-footnote'
 For bugs present in GFM but not here, or other peculiarities that are
 supported, see each corresponding readme:
 
-*   [autolink literal](https://github.com/micromark/micromark-extension-gfm-autolink-literal#bugs)
-*   [footnote](https://github.com/micromark/micromark-extension-gfm-footnote#bugs)
-*   strikethrough: n/a
-*   [table](https://github.com/micromark/micromark-extension-gfm-table#bugs)
-*   tagfilter: n/a
-*   tasklists: n/a
+* [autolink literal](https://github.com/micromark/micromark-extension-gfm-autolink-literal#bugs)
+* [footnote](https://github.com/micromark/micromark-extension-gfm-footnote#bugs)
+* strikethrough: n/a
+* [table](https://github.com/micromark/micromark-extension-gfm-table#bugs)
+* tagfilter: n/a
+* tasklists: n/a
 
 ## Authoring
 
 For recommendations on how to author GFM, see each corresponding readme:
 
-*   [autolink literal](https://github.com/micromark/micromark-extension-gfm-autolink-literal#authoring)
-*   [footnote](https://github.com/micromark/micromark-extension-gfm-footnote#authoring)
-*   [strikethrough](https://github.com/micromark/micromark-extension-gfm-strikethrough#authoring)
-*   [table](https://github.com/micromark/micromark-extension-gfm-table#authoring)
-*   tagfilter: n/a
-*   [tasklists](https://github.com/micromark/micromark-extension-gfm-task-list-item#authoring)
+* [autolink literal](https://github.com/micromark/micromark-extension-gfm-autolink-literal#authoring)
+* [footnote](https://github.com/micromark/micromark-extension-gfm-footnote#authoring)
+* [strikethrough](https://github.com/micromark/micromark-extension-gfm-strikethrough#authoring)
+* [table](https://github.com/micromark/micromark-extension-gfm-table#authoring)
+* tagfilter: n/a
+* [tasklists](https://github.com/micromark/micromark-extension-gfm-task-list-item#authoring)
 
 ## HTML
 
 For info on what HTML features GFM relates to, see each corresponding readme:
 
-*   [autolink literal](https://github.com/micromark/micromark-extension-gfm-autolink-literal#html)
-*   [footnote](https://github.com/micromark/micromark-extension-gfm-footnote#html)
-*   [strikethrough](https://github.com/micromark/micromark-extension-gfm-strikethrough#html)
-*   [table](https://github.com/micromark/micromark-extension-gfm-table#html)
-*   [tagfilter](https://github.com/micromark/micromark-extension-gfm-tagfilter#html)
-*   [tasklists](https://github.com/micromark/micromark-extension-gfm-task-list-item#html)
+* [autolink literal](https://github.com/micromark/micromark-extension-gfm-autolink-literal#html)
+* [footnote](https://github.com/micromark/micromark-extension-gfm-footnote#html)
+* [strikethrough](https://github.com/micromark/micromark-extension-gfm-strikethrough#html)
+* [table](https://github.com/micromark/micromark-extension-gfm-table#html)
+* [tagfilter](https://github.com/micromark/micromark-extension-gfm-tagfilter#html)
+* [tasklists](https://github.com/micromark/micromark-extension-gfm-task-list-item#html)
 
 ## CSS
 
 For info on how GitHub styles these features, see each corresponding readme:
 
-*   [autolink literal](https://github.com/micromark/micromark-extension-gfm-autolink-literal#css)
-*   [footnote](https://github.com/micromark/micromark-extension-gfm-footnote#css)
-*   [strikethrough](https://github.com/micromark/micromark-extension-gfm-strikethrough#css)
-*   [table](https://github.com/micromark/micromark-extension-gfm-table#css)
-*   tagfilter: n/a
-*   [tasklists](https://github.com/micromark/micromark-extension-gfm-task-list-item#css)
+* [autolink literal](https://github.com/micromark/micromark-extension-gfm-autolink-literal#css)
+* [footnote](https://github.com/micromark/micromark-extension-gfm-footnote#css)
+* [strikethrough](https://github.com/micromark/micromark-extension-gfm-strikethrough#css)
+* [table](https://github.com/micromark/micromark-extension-gfm-table#css)
+* tagfilter: n/a
+* [tasklists](https://github.com/micromark/micromark-extension-gfm-task-list-item#css)
 
 ## Syntax
 
 For info on the syntax of these features, see each corresponding readme:
 
-*   [autolink literal](https://github.com/micromark/micromark-extension-gfm-autolink-literal#syntax)
-*   [footnote](https://github.com/micromark/micromark-extension-gfm-footnote#syntax)
-*   [strikethrough](https://github.com/micromark/micromark-extension-gfm-strikethrough#syntax)
-*   [table](https://github.com/micromark/micromark-extension-gfm-table#syntax)
-*   tagfilter: n/a
-*   [tasklists](https://github.com/micromark/micromark-extension-gfm-task-list-item#syntax)
+* [autolink literal](https://github.com/micromark/micromark-extension-gfm-autolink-literal#syntax)
+* [footnote](https://github.com/micromark/micromark-extension-gfm-footnote#syntax)
+* [strikethrough](https://github.com/micromark/micromark-extension-gfm-strikethrough#syntax)
+* [table](https://github.com/micromark/micromark-extension-gfm-table#syntax)
+* tagfilter: n/a
+* [tasklists](https://github.com/micromark/micromark-extension-gfm-task-list-item#syntax)
 
 ## Types
 
