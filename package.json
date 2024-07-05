@@ -31,6 +31,7 @@
   "type": "module",
   "exports": "./index.js",
   "files": [
+    "lib/",
     "index.d.ts",
     "index.js"
   ],
@@ -93,6 +94,29 @@
   },
   "xo": {
     "overrides": [
+      {
+        "files": [
+          "**/*.d.ts"
+        ],
+        "rules": {
+          "@typescript-eslint/array-type": [
+            "error",
+            {
+              "default": "generic"
+            }
+          ],
+          "@typescript-eslint/ban-types": [
+            "error",
+            {
+              "extendDefaults": true
+            }
+          ],
+          "@typescript-eslint/consistent-type-definitions": [
+            "error",
+            "interface"
+          ]
+        }
+      },
       {
         "files": [
           "{test,script}/**/*.js"
